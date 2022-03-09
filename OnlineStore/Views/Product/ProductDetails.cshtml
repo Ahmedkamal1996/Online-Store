@@ -1,0 +1,83 @@
+﻿@using Microsoft.Ajax.Utilities
+@using Microsoft.AspNet.Identity
+@using OnlineStore.BLL.ViewModels.FeedBack
+@using OnlineStore.BLL.ViewModels.Product;
+@model GetProductViewModel
+@{
+    ViewBag.Title = "ProductDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="header_section_top">
+    <h2 style="text-align: center; color: white; font: 35px fantasy; color: white"> Product Details </h2>
+</div>
+
+<div class="fashion_section">
+    <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+
+
+            <div class="carousel-item active">
+                <div class="container"><br/>
+                    <h1 class="fashion_taital" style="font-size: 30px">@Model.Name</h1>
+                    <div class="fashion_section_2">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="box_main">
+                                   
+                                    <p class="price_text"> Name: <span style="color: #262626;">@Model.Name</span></p><br/>
+                                   
+                                    <p class="price_text"> Description: <span style="color: #262626;">@Model.Description</span></p><br/>
+                                    <p class="price_text"> Price: <span style="color: #262626;">@Model.Price$</span></p><br/>
+                                    <p class="price_text"> Available Quantity: <span style="color: #262626;">@Model.InventoryQuantity</span></p><br/>
+                                    
+                                    <p class="price_text"> Rating: <span style="color: #262626;">@Model.TotalRating</span></p><br/>
+                                 
+                                    <div class="electronic_img"><img src="@Url.Content(Model.ProductImages.First().ImagePath)" style="width: 250px; height: 250px"></div>
+                                    <div class="btn_main">
+                                        <div class="buy_bt" style="text-align: center"><a href="@Url.Action("Buy","ShoppingCart",new {productId=Model.Id})">Buy Now</a></div>
+                                        <br/><br/>
+                                       
+                                    </div>
+                                    
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                       
+
+
+                                            <div class="row">
+                                                <div class="box_main">
+                                                    <h2 style="text-align: center"> Rating And Review For This Product</h2>
+                                                    <div class="buy_bt" style="text-align: center"><a href="@Url.Action("CreateFeedBack","FeedBack",new{Model.Id})"> Post Your Comment</a></div>
+                                                </div>
+                                            </div>
+                                       
+
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="box_main" > 
+                                        <div class="buy_bt" style="text-align: center"><a href="@Url.Action("Login","Account")"> Login For Post Your Comment For This Product</a></div>
+                                            </div> 
+                                        </div>
+                                    }
+
+                                </div>
+                                </div>
+                                                
+
+                            </div>
+                        
+                     
+                        
+
+                    </div>
+                    </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+
+
+

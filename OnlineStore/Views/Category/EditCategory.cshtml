@@ -1,0 +1,31 @@
+﻿@using OnlineStore.BLL.ViewModels.Category;
+@model UpdateCategoryViewModel
+@{
+    ViewBag.Title = "EditCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditCategory</h2>
+
+@using (Html.BeginForm("EditCategory", "Category"))
+{
+    <div class="form-group">
+        @Html.HiddenFor(m => m.Id)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.EditorFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", htmlAttributes: new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.EditorFor(m => m.Description, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CategoryId)
+        @Html.DropDownListFor(m=>m.CategoryId,new SelectList(Model.MainCategory,"Id","Name"),new { @class = "form-control" })
+
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+

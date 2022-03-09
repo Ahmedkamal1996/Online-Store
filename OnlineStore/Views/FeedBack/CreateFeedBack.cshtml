@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNet.Identity
+@using OnlineStore.BLL.ViewModels.FeedBack;
+@using OnlineStore.DAL.Models.Products
+@model CreateFeedBackViewModel
+@{
+    ViewBag.Title = "CreateFeedBack";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreateFeedBack</h2>
+
+@using (Html.BeginForm("CreateFeedBack", "FeedBack", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Description, "", new { @class = "text-danger" })
+    </div>
+
+    @*<div class="form-group">
+        <div id="rateYo">
+            @Html.LabelFor(m => m.Rate)
+            @Html.EditorFor(m => m.Rate, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Rate, "", new { @class = "text-danger" })
+        </div>
+        <input type="hidden" id="rating"/>
+    </div>*@
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Rate)
+        @Html.EditorFor(m => m.Rate, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Rate, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+       
+        @Html.HiddenFor(m => m.UserId, new { Model.UserId })
+       
+    </div>
+    <div class="form-group">
+       
+        @Html.HiddenFor(m => m.ProductId, new { Model.ProductId})
+       
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+

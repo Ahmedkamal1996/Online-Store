@@ -1,0 +1,66 @@
+﻿@using OnlineStore.BLL.ViewModels.Order;
+@model List<GetOrderViewModel>
+@{
+    ViewBag.Title = "UserOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box_main" style="height: auto">
+            <table class=" table">
+                <thead class="thead-dark">
+                    <tr>
+
+                        <th scope="col">Order Status</th>
+                        <th scope="col">Date Of Order</th>
+                        <th scope="col">Cancel Order</th>
+
+                    </tr>
+                </thead>
+                @{
+
+                    foreach (var item in Model)
+                    {
+
+                        <tbody>
+                            <tr>
+
+                                <td>@item.Status</td>
+                                <td>@item.CreatedDate</td>
+                                <td>
+                                    <div class="btn_main">
+                                        <div class="btn-danger" style="text-align: center">
+                                            <a href="@Url.Action("CancelStatus", "Order",new{orderId=item.Id})"> Cancel</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                }
+            </table><br/>
+            <div class="card">
+                <div class="row">
+
+                    <div class="col-lg-12">
+
+
+                        <p style="text-align: center; background-color: #212529;color: white" class="card-header">Your Shopping Cart Is Empty</p>
+                        <div class="card-body">
+                            <div class="buy_bt" style="text-align: center">
+                                <a href="@Url.Action("Index", "ShoppingCart")">Back To ShoppingCart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+
+
+        </div>
+    </div>
+</div>
+
+

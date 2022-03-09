@@ -1,0 +1,18 @@
+﻿@using OnlineStore.BLL.ViewModels.ProductImage;
+@model CreateProductImageViewModel
+@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("AddImage", "Product",new  AjaxOptions {HttpMethod = "POST",InsertionMode = InsertionMode.Replace,UpdateTargetId = "productImages",OnSuccess = "onAddImageSuccessful()", OnFailure = "onAddImageFailed()" }, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model=>model.ProductId)
+    @*@Html.Hidden(nameof(Model.ProductId),(int)ViewBag.ProductId)*@
+    <div class="form-group">
+        @Html.LabelFor(m => m.MainImage)
+        <input type="file" name="@nameof(Model.MainImage)"/>
+        @Html.ValidationMessageFor(model => model.MainImage, "", htmlAttributes: new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+}

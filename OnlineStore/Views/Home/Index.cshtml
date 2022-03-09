@@ -1,0 +1,142 @@
+﻿@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin
+@using OnlineStore.BLL.Helpers;
+@using OnlineStore.BLL.ViewModels.Category;
+@using Roles = OnlineStore.BLL.Helpers.Roles
+@model List<GetCategoryViewModel>
+<!-- fashion section start -->
+
+<div class="fashion_section">
+    <div id="main_slider" class="carousel-control" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container">
+
+                    @foreach (GetCategoryViewModel item in Model)
+                    {
+
+
+                        if (item.CategoryId != null)
+                        {
+
+                            <h1 class="fashion_taital">
+                                 
+                                @if (User.IsInRole(nameof(Roles.Admin)))
+                                {
+                                    <a href="/Category/EditCategory?Id=@item.Id" style="font-size: large" title="Edit This Product">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                }
+
+                                <a href="@Url.Action("Details", "Category", new {Id = item.Id})"> @item.Name</a>
+
+                                @if (User.IsInRole(nameof(Roles.Admin)))
+                                {
+                                    <a href="/Category/DeleteCategory?Id=@item.Id" style="font-size: large" title="Delete This Product">
+                                        <i class="fa fa-minus-square-o"></i>
+                                    </a>
+                                }
+                            </h1>
+                            
+                            <div class="fashion_section_2">
+                                <div class="row">
+                                    @foreach (var item2 in item.Products)
+                                    {
+                                        <div class="col-lg-4 col-sm-4">
+                                            <div class="box_main">
+
+                                                <h4 class="shirt_text">
+                                                    <h2 class="shirt_text">  <a href="@Url.Action("ProductDetails", "Product", new {Id = item2.Id})"> @item2.Name</a></h2>
+                                                    <p class="price_text">Price <span style="color: #262626;">@item2.Price</span></p>
+                                                    <div class="tshirt_img"><img src="@Url.Content(item2.ProductImages.First().ImagePath)"></div>
+                                                    <div class="btn_main">
+                                                        <div class="buy_bt"><a href="@Url.Action("Buy","ShoppingCart",new {productId=item2.Id})">Buy Now</a></div>
+                                                        <div class="seemore_bt"><a href="@Url.Action("ProductDetails", "Product", new {Id = item2.Id})">Details</a></div>
+                                                    </div>
+                                                    @if (User.IsInRole(nameof(Roles.Admin)))
+                                                    {
+                                                        <a href="/Product/EditProduct?Id=@item2.Id" style="font-size: large" title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    }
+
+                                                    @if (User.IsInRole(nameof(Roles.Admin)))
+                                                    {
+                                                        <a href="/Product/DeleteProduct?Id=@item2.Id" style="font-size: large" title="Delete">
+                                                            <i class="fa fa-minus-square-o"></i>
+                                                        </a>
+                                                    }
+                                                </h4>
+
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            
+
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+@section nav
+{
+    <div class="header_section">
+        <div class="container">
+            <div class="containt_main">
+                @Html.Partial("_SidenavPartial")
+                <span class="toggle_icon" onclick="openNav()"><img src="~/Content/images/toggle-icon.png"></span>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        All Category
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (var item in Model)
+                        {
+                            if (item.CategoryId != null)
+                            {
+                                <a class="dropdown-item" href="@Url.Action("Details","Category",new{ id=@item.Id})">@item.Name</a>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="main">
+                    <!-- Another variation with a button -->
+                    <form role="form">
+                        <div class="input-group">
+                            <input type="text" name="textSearch" class="form-control" placeholder="Search this blog">
+                            <div class="input-group-append">
+
+                                <a href="#" class="btn btn-secondary" style="background-color: #f26522; border-color: #f26522">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="header_box">
+                    <div class="lang_box ">
+                        <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
+                            <img src="~/Content/images/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="login_menu">
+                        <ul>
+                            <li>
+                                <a href="@Url.Action("Index","ShoppingCart")">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

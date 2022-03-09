@@ -1,0 +1,28 @@
+﻿@using OnlineStore.BLL.ViewModels.Category;
+@using Roles = OnlineStore.BLL.Helpers.Roles
+@model List<GetCategoryViewModel>
+
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/Home/Index">Home</a>
+
+    @foreach (GetCategoryViewModel item in Model)
+    {
+
+        if (item.CategoryId == null)
+        {
+
+            <a href="/Category/Index?id=@item.Id">@item.Name</a>
+        }
+    }
+    @if (User.IsInRole(nameof(Roles.Admin)))
+    {
+        <a href="/Category/AddCategory">Add Category</a>
+        <a href="/Product/AddProduct">Add Product</a>
+        <a href="@Url.Action("Index","FeedBack")">All FeedBacks</a>
+    }
+
+</div>
+
+    

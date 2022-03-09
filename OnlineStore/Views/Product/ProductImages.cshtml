@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+}
+
+@using OnlineStore.BLL.ViewModels.ProductImage;
+@model ICollection< GetProductImageViewModel>
+<div class="row">
+    @foreach (var item in Model)
+    {
+
+        <div class="col-md-4">
+            <div class="box_main">
+
+                <div class="electronic_img"><img src="@Url.Content(item.ImagePath)"></div>
+                <div class="btn_main">
+                    @*<div class="buy_bt"><a href="@Url.Action("Buy", "ShoppingCart", new {productId = item.Id})">Buy Now</a></div>*@
+                    <div class="seemore_bt">
+                        @Ajax.ActionLink("Delete","DeleteImage","Product",new {imageId=item.Id,productId=item.ProductId}, new AjaxOptions { HttpMethod = "DELETE", InsertionMode = InsertionMode.Replace, UpdateTargetId = "productImages"})
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

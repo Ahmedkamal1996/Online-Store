@@ -1,0 +1,34 @@
+﻿@using OnlineStore.BLL.ViewModels.Category;
+@model CreateCategoryViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "AddCategory";
+}
+
+
+
+
+<h2>AddCategory</h2>
+@using (Html.BeginForm("AddCategory", "Category"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.EditorFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", htmlAttributes: new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.EditorFor(m => m.Description, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CategoryId)
+        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.MainCategory, "Id", "Name"), "Select Main Category", new { @class = "form-control" })
+
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+

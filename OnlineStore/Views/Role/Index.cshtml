@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNet.Identity.EntityFramework;
+@model IEnumerable<IdentityRole>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="header_section_top">
+
+    <h2 style="text-align: center; color: white; font: 35px fantasy; color: white"> Roles </h2>
+</div>
+.
+<br/><br/>
+
+<div class="row" style="text-align: center;width: 500px ">
+    
+        <table class="table" style="text-align: center;border: 2px solid darkgray">
+            <thead class="thead-light">
+
+            <tr>
+                <th class="col">Available Role</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+      
+   
+</div>
+
+<div class="banner_section">
+    <br />
+        
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="buynow_bt" style="width: 150px">
+                 <a href="@Url.Action("CreateRole", "Role")" style="font-size: 12px; font-weight: normal">Create New Role</a>
+            </div>
+        </div>
+                
+        <div class="buynow_bt" style="width:150px;">
+            <a href="@Url.Action("RegisterRole", "Account")" style="font-size: 12px; font-weight: normal">Assign Role To User</a>
+        </div>
+    </div>
+</div>
+
+<br/><br/>

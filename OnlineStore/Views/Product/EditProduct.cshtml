@@ -1,0 +1,97 @@
+﻿@using OnlineStore.BLL.ViewModels.Product;
+@using OnlineStore.BLL.ViewModels.ProductImage
+@model UpdateProductViewModel
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditProduct</h2>
+<div class="row">
+    @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    {
+        <div class="form-group">
+            @Html.HiddenFor(m => m.Id)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.EditorFor(m => m.Name, new {@class = "form-control"})
+            @Html.ValidationMessageFor(model => model.Name, "", htmlAttributes: new {@class = "text-danger"})
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description)
+            @Html.EditorFor(m => m.Description, new {@class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Price)
+            @Html.EditorFor(m => m.Price, new {@class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.InventoryQuantity)
+            @Html.EditorFor(m => m.InventoryQuantity, new {@class = "form-control"})
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CategoryId)
+            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "Select Category Of Product", new {@class = "form-control"})
+
+        </div>
+
+        @*<div class="form-group">
+           
+            @Html.HiddenFor(m => m.Categories)
+
+        </div>*@
+        <button type="submit" class="btn btn-primary">Save</button>
+    }
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add Image
+        </button>
+    </div>
+    <div id="productImages" class="col-md-12">
+
+        @Html.Action("ProductImages", new {productId = Model.Id})
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Product Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.Action("AddImage",new { productId=Model.Id})
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(() => {
+
+        });
+
+        function onAddImageSuccessful() {
+            alert("Successful");
+            $('#exampleModal').modal('toggle');
+        }
+        function onAddImageFailed() {
+            alert("Failed");
+            $('#exampleModal').modal('toggle');
+        }
+    </script>
+}

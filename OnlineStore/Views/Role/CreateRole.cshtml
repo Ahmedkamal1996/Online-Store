@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNet.Identity.EntityFramework;
+@model IdentityRole
+@{
+    ViewBag.Title = "CreateRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="header_section_top">
+
+    <h2 style="text-align: center; color: white; font: 35px fantasy; color: white"> Create Roles </h2>
+</div>
+.
+<br />
+<br />
+
+<div class="banner_section">
+    @using (Html.BeginForm("CreateRole", "Role", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>
+                    Enter Role Name To Be Created:
+                </td>
+                <td>
+                    @Html.EditorFor(x=>x.Name)
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Create Role" style="background-color: #252525;color: white"/>
+    }
+</div>

@@ -1,0 +1,126 @@
+﻿@using System.Collections.Generic
+@using OnlineStore.BLL.ViewModels.ShoppingCart;
+@model  ShoppingCartViewModel 
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        var cart = (ShoppingCartViewModel)Session["cart"];
+    }
+
+
+
+    <div class="header_section_top">
+        <h2 style="text-align: center; color: white; font: 35px fantasy; color: white"> Shopping Cart </h2>
+    </div>
+    <div>.</div><br />
+
+
+
+    @if (Session["cart"] != null)
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box_main" style="height: auto">
+                    <table class=" table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Products</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">SubTotal</th>
+
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        @{
+                            //ShoppingCartViewModel cart = (ShoppingCartViewModel) Session["cart"];
+                            foreach (var item in cart.Items)
+                            {
+
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="@Url.Content(item.Product.ProductImages.First().ImagePath)" width="60"/>
+                                    </td>
+                                    <td>@item.Product.Name</td>
+                                    <td>@item.Product.Price</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@(item.Product.Price * item.Quantity)</td>
+                                    <td>
+                                        <span class="ui-icon-close">
+                                            <a href="@Url.Action("Remove", "ShoppingCart", new {productId = item.Product.Id})" title="Delete this product"><i class="fa fa-remove"></i></a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            }
+                        }
+                    </table>
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="btn_main">
+                                <div class="buy_bt" style="text-align: center">
+                                    <a href="@Url.Action("Index", "Product")">CONTINUE SHOPPING</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="width: 400px; text-align: center">
+
+            <h2 class="card-header" style="background-color: #212529;color: white">Cart Total</h2>
+            <div class="card-body">
+                @{
+                    
+                    var total = cart.Items.ToList().Sum(item => item.Product.Price * item.Quantity);
+                }
+                <h3 class="card-title">Total: <span style="color: #e97110;"><b>@total $</b></span></h3>
+                <div class="buy_bt" style="text-align: center">
+                   
+                    <a href="@Url.Action("AddOrder", "ShoppingCart")">PROCEED TO CHECKOUT</a>
+                </div>
+                <div class="buy_bt" style="text-align: center">
+                   
+                    <a href="@Url.Action("UserOrder", "Order")">View Order Details</a>
+                </div>
+            </div>
+        </div>
+        <br />
+    }
+
+    else
+    {
+
+        <div class="card">
+            <div class="row">
+
+                <div class="col-lg-12">
+
+
+                    <p style="text-align: center; background-color: #212529;color: white" class="card-header">Your Shopping Cart Is Empty</p>
+                    <div class="card-body">
+                        <div class="buy_bt" style="text-align: center">
+                            <a href="@Url.Action("Index", "Product")">CONTINUE SHOPPING</a>
+                        </div>
+                    </div>
+                    <div class="card-body" style="text-align: center">
+                   
+                        <a href="@Url.Action("UserOrder", "Order")">View Order Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    }
+

@@ -1,0 +1,65 @@
+﻿@using OnlineStore.BLL.ViewModels.Category;
+@model GetCategoryViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+
+<!-- electronic section start -->
+<div class="fashion_section">
+    <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+
+
+            <div class="carousel-item active">
+                <div class="container">
+                    <h1 class="fashion_taital">@Model.Name</h1>
+                    <div class="fashion_section_2">
+                        <div class="row">
+                            @foreach (var item in Model.SubCategories)
+                            {
+                                if (item.CategoryId == Model.Id)
+                                {
+                                    <div class="col-lg-12 col-sm-12">
+                                        <div class="box_main">
+                                            <h4 class="shirt_text"><a href="@Url.Action("Details", "Category", new {Id = item.Id})">  @item.Name </a></h4><br/>
+                                           
+                                            <div class="row">
+                                                @foreach (var item2 in item.Products)
+                                                {
+                                                    <div class="col-lg-3 col-sm-3">
+                                                        <div class="box_main" >
+                                                            <h4 class="shirt_text" style="font-size: 15px"><a href="@Url.Action("ProductDetails", "Product", new {Id = item2.Id})"> @item2.Name</a></h4>
+                                                            <p class="price_text">Start Price <span style="color: #262626;">@item2.Price$</span></p>
+                                                            <div class="electronic_img"><img src="@Url.Content(item2.ProductImages.First().ImagePath)"></div>
+                                                            <div class="btn_main">
+                                                                <div class="buy_bt"><a href="@Url.Action("Buy","ShoppingCart",new {productId=item2.Id})">Buy Now</a></div>
+                                                                <div class="seemore_bt"><a href="@Url.Action("ProductDetails","Product",new {id=item2.Id})">Details</a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                               
+                                            </div>
+                                         
+                                            
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<!-- electronic section end -->
+

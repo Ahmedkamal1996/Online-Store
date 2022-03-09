@@ -1,0 +1,77 @@
+﻿@using OnlineStore.BLL.ViewModels.FeedBack;
+@model List<GetFeedBackViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="header_section_top">
+
+    <h2 style="text-align: center; color: white; font: 35px fantasy; color: white"> ALL FeedBacks </h2>
+</div>
+
+
+
+
+            <div class="carousel-item active">
+                <div class="container">
+                    <div class="fashion_section_2">
+                        <div class="row">
+                            @foreach (GetFeedBackViewModel item in Model)
+                            {
+
+                                <div class="col-lg-4 col-sm-4">
+                                    <div class="card" style="width: 18rem">
+                                        <div class="card-body">
+
+                                        <p class="price_text">Description: <span style="color: #262626;">@item.Description</span></p><br/>
+                                        <p class="price_text">Rate: <span style="color: #262626;">@item.Rate</span></p><br/>
+                                        <p class="price_text">Product: <span style="color: #262626;">@item.ProductId</span></p><br/>
+                                        <p class="price_text">User: <span style="color: #262626; padding-right: 5px">@item.User.UserName</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+@section nav
+{
+    <div class="header_section">
+        <div class="container">
+            <div class="containt_main">
+                <div class="main">
+                    <!-- Another variation with a button -->
+                    <form role="form">
+                        <div class="input-group">
+                            <input type="text" name="textSearch" class="form-control" placeholder="Search this blog">
+                            <div class="input-group-append">
+
+                                <a href="#" class="btn btn-secondary" style="background-color: #f26522; border-color: #f26522">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="header_box">
+                    <div class="lang_box ">
+                        <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
+                            <img src="~/Content/images/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
